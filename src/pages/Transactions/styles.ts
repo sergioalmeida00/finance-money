@@ -5,6 +5,10 @@ export const TransactionContainer = styled.div`
   max-width: 70rem;
   margin: 4rem auto 0;
   padding: 0 1.5rem;
+    @media (max-width: 768px){
+        overflow-x: auto;
+    }
+
 `
 
 export const TransactionTable = styled.table`
@@ -25,8 +29,7 @@ export const TransactionTable = styled.table`
     &:last-child{
       border-top-right-radius: 6px;
       border-bottom-right-radius: 6px;
-    }
-    
+    }    
   }
 `
 interface PriceProps{

@@ -11,7 +11,9 @@ export const SummaryContainer = styled.section`
   grid-template-columns: repeat(3,1fr);
   gap: 2rem;
 
-
+  @media (max-width: 768px){
+    overflow-y: auto;
+  }
 `
 
 interface SummaryCardProps{
@@ -42,8 +44,5 @@ export const HeaderCard = styled.header`
   span{
     color: ${({ theme }) => theme.gray[300]};
   }
-  /* svg {
-    color: ${({ theme }) => theme.green[300]};
-    font-size: 1.2rem;
-  } */
+
 `
