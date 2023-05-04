@@ -4,8 +4,13 @@ import ReactDOM from 'react-dom';
 
 interface ModalPorps{
   handleToggleModal: (statusModal:boolean) => void
+  isOpenModal: boolean
 }
-export function Modal({handleToggleModal}:ModalPorps){
+export function Modal({handleToggleModal, isOpenModal}:ModalPorps){
+
+  if(!isOpenModal){
+    return null
+  }
   return ReactDOM.createPortal(
     <ModalOverlay>
       <ModalContainer>
