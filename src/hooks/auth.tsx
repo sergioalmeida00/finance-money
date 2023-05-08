@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState,useEffect } from "react";
 import { api } from "../services/api";
 
 
@@ -14,7 +14,7 @@ interface SignInProps{
 export const AuthContext = createContext({})
 
 function AuthProvider({ children }:AuthProviderProps){
-    const [user,setUser] = useState(false)
+    const [auth,setAuth] = useState('')
     async function signIn({login,password}:SignInProps){
 
         try {
@@ -22,8 +22,10 @@ function AuthProvider({ children }:AuthProviderProps){
                 login,password
             })
             const { token } = response.data
-            token && setUser((prevState) => !prevState)
+
+            localStorage.setItem('@finance:token', token)
             api.defaults.headers.authorization = `Bearer ${token}`
+            token && setAuth(token)
            
         } catch (error) {
             console.log(`error : ${error}`)
@@ -31,9 +33,18 @@ function AuthProvider({ children }:AuthProviderProps){
 
     }
 
+    useEffect(() => {
+        const token = localStorage.getItem('@finance:token')
+
+        if(token){
+            api.defaults.headers.authorization = `Bearer ${token}`
+            setAuth(token)
+        }
+    },[])
+
 
     return(
-        <AuthContext.Provider value={{ signIn, user }}>
+        <AuthContext.Provider value={{ signIn, auth }}>
             { children }
         </AuthContext.Provider>
     )
