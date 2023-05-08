@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { api } from "../services/api";
 
 
@@ -14,7 +14,7 @@ interface SignInProps{
 export const AuthContext = createContext({})
 
 function AuthProvider({ children }:AuthProviderProps){
-
+    const [user,setUser] = useState(false)
     async function signIn({login,password}:SignInProps){
 
         try {
@@ -22,8 +22,9 @@ function AuthProvider({ children }:AuthProviderProps){
                 login,password
             })
             const { token } = response.data
+            token && setUser((prevState) => !prevState)
             api.defaults.headers.authorization = `Bearer ${token}`
-            
+           
         } catch (error) {
             console.log(`error : ${error}`)
         }
@@ -32,7 +33,7 @@ function AuthProvider({ children }:AuthProviderProps){
 
 
     return(
-        <AuthContext.Provider value={{ signIn }}>
+        <AuthContext.Provider value={{ signIn, user }}>
             { children }
         </AuthContext.Provider>
     )

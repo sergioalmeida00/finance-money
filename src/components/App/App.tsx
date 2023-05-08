@@ -5,6 +5,7 @@ import { Transactions } from "../../pages/Transactions";
 import { AppContainer } from "./styles";
 import { Login } from "../../pages/Login";
 import { AuthProvider } from "../../hooks/auth";
+import { Routes } from "../../routes";
 
 
 export function App() {
@@ -14,7 +15,7 @@ export function App() {
       <GlobalStyle/>
        {/* <Transactions/> */}
        <AuthProvider>
-          <Login/>
+          <Routes/>
        </AuthProvider>
 
     </ThemeProvider>
