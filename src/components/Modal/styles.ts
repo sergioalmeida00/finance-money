@@ -51,6 +51,7 @@ export const ModalInput = styled.input`
   border-radius: 6px;
   border: none;
   background: ${({ theme }) => theme.gray[900]};
+  color: ${({ theme }) => theme.gray[300]};
 `
 
 export const ModalSelect = styled.select`

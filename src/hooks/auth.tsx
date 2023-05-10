@@ -1,6 +1,5 @@
-import { createContext, useContext, useState,useEffect } from "react";
-import { api } from "../services/api";
-
+import { createContext } from "react";
+import { useAuth } from "./useAuth";
 
 interface AuthProviderProps {
     children: React.ReactNode;
@@ -11,37 +10,17 @@ interface SignInProps{
     password:string
 }
 
-export const AuthContext = createContext({})
+interface AuthSignProps{
+    signIn: ({login,password}:SignInProps) => void
+    auth:string
+}
+
+
+export const AuthContext = createContext({} as AuthSignProps)
 
 function AuthProvider({ children }:AuthProviderProps){
-    const [auth,setAuth] = useState('')
-    async function signIn({login,password}:SignInProps){
 
-        try {
-            const response = await api.post('/user/authenticate', {
-                login,password
-            })
-            const { token } = response.data
-
-            localStorage.setItem('@finance:token', token)
-            api.defaults.headers.authorization = `Bearer ${token}`
-            token && setAuth(token)
-           
-        } catch (error) {
-            console.log(`error : ${error}`)
-        }
-
-    }
-
-    useEffect(() => {
-        const token = localStorage.getItem('@finance:token')
-
-        if(token){
-            api.defaults.headers.authorization = `Bearer ${token}`
-            setAuth(token)
-        }
-    },[])
-
+    const {signIn,auth} = useAuth()
 
     return(
         <AuthContext.Provider value={{ signIn, auth }}>
@@ -50,10 +29,4 @@ function AuthProvider({ children }:AuthProviderProps){
     )
 }
 
-function useAuth(){
-    const context = useContext(AuthContext)
-
-    return context
-}
-
-export {AuthProvider, useAuth}
+export {AuthProvider}

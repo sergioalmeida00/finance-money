@@ -1,12 +1,12 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Input } from "../../components/Input/styles"
 import { ContainerLogin, Content } from "./styles"
-import { useAuth } from "../../hooks/auth"
+import { AuthContext } from "../../hooks/auth"
 
 export function Login(){
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
-    const { signIn } = useAuth()
+    const { signIn } = useContext(AuthContext)
 
     function handleChangeLogin(event: React.ChangeEvent<HTMLInputElement>){
         setLogin(event.target.value)        

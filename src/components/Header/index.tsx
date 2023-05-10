@@ -12,7 +12,9 @@ export function Header(){
 
   return (
     <HeaderContainer>
-        <Modal handleToggleModal={handleToggleModal} isOpenModal={openModal}/>
+      {
+        openModal && <Modal handleToggleModal={handleToggleModal}/>
+      }
       <HeaderContent>
         <strong>
           Finance
