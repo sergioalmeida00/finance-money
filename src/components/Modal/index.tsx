@@ -1,8 +1,10 @@
 import { Button, ModalContainer, ModalContent, ModalInput, ModalOverlay, ModalSelect } from "./styles";
 import { FiXCircle } from 'react-icons/fi';
 import ReactDOM from 'react-dom';
-import { api } from "../../services/api";
-import { useEffect, useState } from "react";
+import {  useContext, useEffect, useState } from "react";
+import TransactionsService from "../../services/TransactionsService";
+import { AuthContext } from "../../hooks/auth";
+
 
 interface ModalProps{
   handleToggleModal: (statusModal:boolean) => void
@@ -14,25 +16,21 @@ interface CategoriesProps{
   typeTransaction?: 'credit' | 'debit'
 }
 
+
 export function Modal({handleToggleModal}:ModalProps){
   const [categories, setCategories] = useState<CategoriesProps[]>([])
   const [category, setCategory] = useState('')
   const [title,setTitle] = useState('')
   const [amount,setAmount] = useState('')
+  const [releaseDate,setReleaseDate] = useState('')
   const [typeTransaction, setTypeTransaction] = useState<Pick<CategoriesProps,'typeTransaction'>>()
 
-  // if(!isOpenModal){
-  //   return null
-  // }
-  
-  async function loadCategory(){
-    try {
-      const response = await api.get('/category')
-      const { listCategories } = response.data
-      setCategories(listCategories)
-    } catch (error) {
-      console.log(`error = ${error}`)
-    }
+  const{ transactionsList } = useContext(AuthContext)
+
+
+  async function loadCategories(){
+    const listCategories  = await TransactionsService.loadCategories()
+    setCategories(listCategories)
   }
 
   function handleChangeTitle(event: React.ChangeEvent<HTMLInputElement>){
@@ -43,25 +41,36 @@ export function Modal({handleToggleModal}:ModalProps){
     setAmount( event.target.value )
   }
 
+  function handleChangeReleaseDate(event: React.ChangeEvent<HTMLInputElement>){
+    setReleaseDate(event.target.value)
+  }
+
   function handleChangeCategory(event: React.ChangeEvent<HTMLSelectElement>){
     setCategory( event.target.value )
   }
-
 
   function handleChangeTypeTransaction (event: React.ChangeEvent<HTMLSelectElement>){
     setTypeTransaction( event.target.value as Pick<CategoriesProps, 'typeTransaction'> )
   }
 
-  function handleSubmit(event:  React.FormEvent<HTMLFormElement>){
+  async function handleSubmit(event:  React.FormEvent<HTMLFormElement>){
     event.preventDefault();
-    console.log({
-      title, amount, typeTransaction, category
-    })
+
+    await TransactionsService.createTransactions({
+      title,
+      amount:Number(amount),
+      type:typeTransaction,
+      categoryId:category,
+      releaseDate
+    }) 
+
+    transactionsList()
   }
 
-  useEffect(() => {
-  
-    loadCategory()
+  useEffect(() => { 
+
+    loadCategories()
+
   }, [])
 
   return ReactDOM.createPortal(
@@ -74,6 +83,7 @@ export function Modal({handleToggleModal}:ModalProps){
         <ModalContent onSubmit={handleSubmit}>
           <ModalInput placeholder="Descrição" onChange={handleChangeTitle}  value={title}/>
           <ModalInput placeholder="Preço" type="number" onChange={handleChangeAmount} value={amount} />
+          <ModalInput type="date" onChange={handleChangeReleaseDate} />
           <ModalSelect onChange={handleChangeCategory}>
             <option>Selecione a Categoria</option>
             {
