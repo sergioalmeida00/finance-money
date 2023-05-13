@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import {  useContext, useEffect, useState } from "react";
 import TransactionsService from "../../services/TransactionsService";
 import { AuthContext } from "../../hooks/auth";
+import { SetStateAction, Dispatch } from "react";
 
 
 interface ModalProps{
@@ -27,30 +28,13 @@ export function Modal({handleToggleModal}:ModalProps){
 
   const{ transactionsList } = useContext(AuthContext)
 
+  function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement >, setState:Dispatch<SetStateAction<string>>){
+    setState(event.target.value)
+  }
 
   async function loadCategories(){
     const listCategories  = await TransactionsService.loadCategories()
     setCategories(listCategories)
-  }
-
-  function handleChangeTitle(event: React.ChangeEvent<HTMLInputElement>){
-    setTitle( event.target.value )
-  }
-
-  function handleChangeAmount(event: React.ChangeEvent<HTMLInputElement>){
-    setAmount( event.target.value )
-  }
-
-  function handleChangeReleaseDate(event: React.ChangeEvent<HTMLInputElement>){
-    setReleaseDate(event.target.value)
-  }
-
-  function handleChangeCategory(event: React.ChangeEvent<HTMLSelectElement>){
-    setCategory( event.target.value )
-  }
-
-  function handleChangeTypeTransaction (event: React.ChangeEvent<HTMLSelectElement>){
-    setTypeTransaction( event.target.value as Pick<CategoriesProps, 'typeTransaction'> )
   }
 
   async function handleSubmit(event:  React.FormEvent<HTMLFormElement>){
@@ -81,10 +65,10 @@ export function Modal({handleToggleModal}:ModalProps){
            <FiXCircle size={22} /> 
         </button>
         <ModalContent onSubmit={handleSubmit}>
-          <ModalInput placeholder="Descrição" onChange={handleChangeTitle}  value={title}/>
-          <ModalInput placeholder="Preço" type="number" onChange={handleChangeAmount} value={amount} />
-          <ModalInput type="date" onChange={handleChangeReleaseDate} />
-          <ModalSelect onChange={handleChangeCategory}>
+          <ModalInput placeholder="Descrição" onChange={(event) => {handleChange(event,setTitle )}}  value={title}/>
+          <ModalInput placeholder="Preço" type="number" onChange={(event) => {handleChange(event,setAmount )}}  value={amount} />
+          <ModalInput type="date" onChange={(event) => {handleChange(event,setReleaseDate )}}  />
+          <ModalSelect onChange={(event) => {handleChange( event,setCategory )}} >
             <option>Selecione a Categoria</option>
             {
               categories.map((category) => (
@@ -95,7 +79,7 @@ export function Modal({handleToggleModal}:ModalProps){
             }         
           </ModalSelect>
 
-          <ModalSelect onChange={handleChangeTypeTransaction}>
+          <ModalSelect onChange={(event) => {handleChange(event,setTypeTransaction )}} >
             <option>Tipo de Movimentação</option>
             <option value="credit">Credito</option>
             <option value="debit">Debito</option>
