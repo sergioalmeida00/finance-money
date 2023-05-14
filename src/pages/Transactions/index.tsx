@@ -4,6 +4,7 @@ import { Summary } from "../../components/Summary";
 import { Price, TransactionContainer, TransactionTable } from "./styles";
 import { formatDate } from "../../utils/formatDate";
 import { AuthContext } from "../../hooks/auth";
+import { formatPrice } from "../../utils/formatPrice";
 
 
 export function Transactions(){
@@ -31,7 +32,7 @@ export function Transactions(){
                       <Price 
                         variant={transaction.amount > 0 ? 'income' : 'outcome'}
                       > 
-                        R$ { transaction.amount } 
+                        { formatPrice(transaction.amount) } 
                       </Price>                  
                     </td>
                     <td> { transaction.description } </td>

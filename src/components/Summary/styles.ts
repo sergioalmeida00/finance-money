@@ -29,7 +29,7 @@ export const SummaryCard = styled.div<SummaryCardProps>`
   gap: 0.75rem;
 
   >strong{
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   ${({ theme,variant  }) => variant === 'green' && css`
