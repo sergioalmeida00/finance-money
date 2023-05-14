@@ -17,16 +17,17 @@ interface CategoriesProps{
   typeTransaction?: 'credit' | 'debit'
 }
 
-
 export function Modal({handleToggleModal}:ModalProps){
   const [categories, setCategories] = useState<CategoriesProps[]>([])
   const [category, setCategory] = useState('')
   const [title,setTitle] = useState('')
   const [amount,setAmount] = useState('')
   const [releaseDate,setReleaseDate] = useState('')
-  const [typeTransaction, setTypeTransaction] = useState<Pick<CategoriesProps,'typeTransaction'>>()
+  const [typeTransaction, setTypeTransaction] = useState<Pick<CategoriesProps,'typeTransaction'>>()  
 
   const{ transactionsList } = useContext(AuthContext)
+
+  const isValid = (!category.trim() || !title.trim() || !amount || !releaseDate || !typeTransaction) 
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement >, setState:Dispatch<SetStateAction<string>>){
     setState(event.target.value)
@@ -65,9 +66,22 @@ export function Modal({handleToggleModal}:ModalProps){
            <FiXCircle size={22} /> 
         </button>
         <ModalContent onSubmit={handleSubmit}>
-          <ModalInput placeholder="Descrição" onChange={(event) => {handleChange(event,setTitle )}}  value={title}/>
-          <ModalInput placeholder="Preço" type="number" onChange={(event) => {handleChange(event,setAmount )}}  value={amount} />
-          <ModalInput type="date" onChange={(event) => {handleChange(event,setReleaseDate )}}  />
+          <ModalInput 
+            placeholder="Descrição" 
+            onChange={(event) => {handleChange(event,setTitle )}}  
+            value={title}
+          />
+          <ModalInput 
+            placeholder="Preço" 
+            type="number" 
+            onChange={(event) => {handleChange(event,setAmount )}}  
+            value={amount} 
+          />
+          <ModalInput 
+            type="date" 
+            onChange={(event) => {handleChange(event,setReleaseDate )}}  
+          />
+
           <ModalSelect onChange={(event) => {handleChange( event,setCategory )}} >
             <option>Selecione a Categoria</option>
             {
@@ -83,8 +97,9 @@ export function Modal({handleToggleModal}:ModalProps){
             <option>Tipo de Movimentação</option>
             <option value="credit">Credito</option>
             <option value="debit">Debito</option>
-          </ModalSelect>
-          <Button> Cadastrar </Button>
+          </ModalSelect>          
+         
+          <Button disabled={isValid}> Cadastrar </Button>
         </ModalContent>
         
       </ModalContainer>

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const ModalOverlay = styled.div`
   display: flex;
@@ -44,14 +44,19 @@ export const ModalContent = styled.form`
   gap: 1rem;
   margin-top: 2rem;
 `
-
-export const ModalInput = styled.input`
+interface ModalInputErro{
+  error?:boolean
+}
+export const ModalInput = styled.input<ModalInputErro>`
   padding: 1rem;
   width: 100%;
   border-radius: 6px;
   border: none;
   background: ${({ theme }) => theme.gray[900]};
-  color: ${({ theme }) => theme.gray[300]};
+  color: ${({ theme }) => theme.gray[500]};
+  ${({theme,error}) => error && css`
+    border: 1px solid ${theme.red[500]};
+  `}
 `
 
 export const ModalSelect = styled.select`
@@ -74,5 +79,9 @@ export const Button = styled.button`
 
   &:hover{
     filter: brightness(0.8);
+  }
+  &[disabled]{
+    cursor: not-allowed;
+    opacity: 0.2;
   }
 `
