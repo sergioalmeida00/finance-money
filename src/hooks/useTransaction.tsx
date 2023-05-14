@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TransactionsService from "../services/TransactionsService";
 
 interface SummaryBalance{
@@ -15,19 +15,13 @@ interface SummaryBalance{
 export function useTransactions(){
   const [transactions,setTransactions] = useState([])
   const [summary, setSummary] = useState({} as SummaryBalance )
-
+  
   async function transactionsList(){
     const resultTransactions = await TransactionsService.getTransactions()
     const summaryBalance = await TransactionsService.getSummaryBalance()
-    
     setSummary(summaryBalance) 
-    setTransactions(resultTransactions)
-    
-
+    setTransactions(resultTransactions)   
   } 
-  useEffect(() => {
-    transactionsList()
-  } , [])
 
   return {transactions, summary, transactionsList}
 }

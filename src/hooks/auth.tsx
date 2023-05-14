@@ -46,7 +46,7 @@ function AuthProvider({ children }:AuthProviderProps){
 
     const {signIn,auth} = useAuth()
     const {transactions, transactionsList, summary} = useTransactions()
-
+    
     return(
         <AuthContext.Provider value={{ signIn, auth, transactions, transactionsList, summary }}>
             { children }

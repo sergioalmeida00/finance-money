@@ -1,14 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import TransactionsService from "../../services/TransactionsService";
+import { useContext } from "react";
 import { HeaderCard, SummaryCard, SummaryContainer } from "./styles";
 import { FiArrowUpCircle,FiArrowDownCircle,FiDollarSign } from 'react-icons/fi';
-import { useTransactions } from "../../hooks/useTransaction";
 import { AuthContext } from "../../hooks/auth";
 
 export function Summary(){
 
 const { summary } = useContext(AuthContext)
-console.log( summary )
   return(
     <SummaryContainer>
       <SummaryCard>

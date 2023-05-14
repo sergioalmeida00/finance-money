@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Header } from "../../components/Header";
 import { Summary } from "../../components/Summary";
 import { Price, TransactionContainer, TransactionTable } from "./styles";
@@ -8,9 +8,13 @@ import { AuthContext } from "../../hooks/auth";
 
 export function Transactions(){
 
-  const {transactions} = useContext(AuthContext)
+  const {transactions,transactionsList} = useContext(AuthContext)
 
- 
+  useEffect( () => {
+    transactionsList()
+  }, [])
+
+  
   return (
     <>
       <Header/>
