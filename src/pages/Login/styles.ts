@@ -31,6 +31,11 @@ export const Content = styled.div`
     flex-direction: column;
     gap: 1rem;
 
+    small{
+      margin-top: -0.8rem;
+      color: ${({ theme }) => theme.red[500]};
+    }
+
     >button{
         padding: 0.75rem 1.25rem;
         border-radius: 6px;
@@ -42,6 +47,11 @@ export const Content = styled.div`
 
         &:hover{
             filter: brightness(0.8);
+        }
+
+        &[disabled]{
+          cursor: not-allowed;
+          opacity: 0.2;
         }
     }
    }
