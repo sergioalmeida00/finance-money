@@ -5,6 +5,7 @@ import {  useContext, useEffect, useState } from "react";
 import TransactionsService from "../../services/TransactionsService";
 import { AuthContext } from "../../hooks/auth";
 import { SetStateAction, Dispatch } from "react";
+import { useErrors } from "../../hooks/useErrors";
 
 
 interface ModalProps{
@@ -26,11 +27,18 @@ export function Modal({handleToggleModal}:ModalProps){
   const [typeTransaction, setTypeTransaction] = useState<Pick<CategoriesProps,'typeTransaction'>>()  
 
   const{ transactionsList } = useContext(AuthContext)
+  const { errors,getErrorMessageByFieldName,removeError,setError} = useErrors()
 
   const isValid = (!category.trim() || !title.trim() || !amount || !releaseDate || !typeTransaction) 
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement >, setState:Dispatch<SetStateAction<string>>){
     setState(event.target.value)
+    
+    if(!event.target.value){
+      setError({field: event.target.name })
+    }else{
+      removeError( event.target.name )
+    }
   }
 
   async function loadCategories(){
@@ -59,6 +67,7 @@ export function Modal({handleToggleModal}:ModalProps){
   }, [])
 
   return ReactDOM.createPortal(
+    
     <ModalOverlay>
       <ModalContainer>
         <h3>Nova Transação</h3>
@@ -67,23 +76,31 @@ export function Modal({handleToggleModal}:ModalProps){
         </button>
         <ModalContent onSubmit={handleSubmit}>
           <ModalInput 
+            name="title"
             placeholder="Descrição" 
             onChange={(event) => {handleChange(event,setTitle )}}  
             value={title}
           />
+          { errors && <small> { getErrorMessageByFieldName('title') } </small> }
+
           <ModalInput 
+            name="amount"
             placeholder="Preço" 
             type="number" 
             onChange={(event) => {handleChange(event,setAmount )}}  
             value={amount} 
           />
+          { errors && <small> { getErrorMessageByFieldName('amount') } </small> }
+
           <ModalInput 
+            name="date"
             type="date" 
             onChange={(event) => {handleChange(event,setReleaseDate )}}  
           />
+          { errors && <small> { getErrorMessageByFieldName('date') } </small> }
 
-          <ModalSelect onChange={(event) => {handleChange( event,setCategory )}} >
-            <option>Selecione a Categoria</option>
+          <ModalSelect name="category" onChange={(event) => {handleChange( event,setCategory )}} >
+            <option value="" >Selecione a Categoria</option>
             {
               categories.map((category) => (
                 <option key={category.id} value={ category.id }>
@@ -92,12 +109,14 @@ export function Modal({handleToggleModal}:ModalProps){
               ))
             }         
           </ModalSelect>
+          { errors && <small> { getErrorMessageByFieldName('category') } </small> }
 
-          <ModalSelect onChange={(event) => {handleChange(event,setTypeTransaction )}} >
-            <option>Tipo de Movimentação</option>
+          <ModalSelect name="type" onChange={(event) => {handleChange(event,setTypeTransaction )}} >
+            <option value="">Tipo de Movimentação</option>
             <option value="credit">Credito</option>
             <option value="debit">Debito</option>
           </ModalSelect>          
+          { errors && <small> { getErrorMessageByFieldName('type') } </small> }
          
           <Button disabled={isValid}> Cadastrar </Button>
         </ModalContent>

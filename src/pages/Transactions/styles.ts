@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 export const TransactionContainer = styled.div`
   width: 100%;
   max-width: 70rem;
@@ -12,6 +13,7 @@ export const TransactionContainer = styled.div`
 `
 
 export const TransactionTable = styled.table`
+  
   width: 100%;
   border-collapse: separate;
   border-spacing:0 0.5rem;

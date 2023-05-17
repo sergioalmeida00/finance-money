@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { Header } from "../../components/Header";
 import { Summary } from "../../components/Summary";
-import { Price, TransactionContainer, TransactionTable } from "./styles";
+import {  Price, TransactionContainer, TransactionTable } from "./styles";
 import { formatDate } from "../../utils/formatDate";
 import { AuthContext } from "../../hooks/auth";
 import { formatPrice } from "../../utils/formatPrice";

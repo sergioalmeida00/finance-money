@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const SummaryContainer = styled.section`
+  
   width: 100%;
   max-width: 70rem;
   margin: 0 auto;
@@ -9,6 +10,7 @@ export const SummaryContainer = styled.section`
 
   display: grid;
   grid-template-columns: repeat(3,1fr);
+  
   gap: 2rem;
 
   @media (max-width: 768px){

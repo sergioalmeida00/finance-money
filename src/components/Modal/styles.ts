@@ -43,6 +43,12 @@ export const ModalContent = styled.form`
   flex-direction: column;
   gap: 1rem;
   margin-top: 2rem;
+
+  >small{
+    margin-top: -0.8rem;
+    color: ${({ theme }) => theme.red[500]};
+    font-weight: bold;
+  }
 `
 interface ModalInputErro{
   error?:boolean

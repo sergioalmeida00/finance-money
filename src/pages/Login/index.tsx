@@ -14,11 +14,10 @@ export function Login(){
 
     const isFormValid = (errors.length == 0)
 
-    console.log(errors, isFormValid)
     function handleChangeLogin(event: React.ChangeEvent<HTMLInputElement>){
         setLogin(event.target.value)    
         if(!event.target.value){
-            setError({field:'login', message:'Login precisa ser preenchido.'})
+            setError({field:'login'})
         }else{
             removeError('login')
         }
@@ -27,7 +26,7 @@ export function Login(){
     function handleChangePassword(event: React.ChangeEvent<HTMLInputElement>){
         setPassword(event.target.value)
         if(!event.target.value){
-            setError({field:'password',message:'Senha precisa ser informada.'})
+            setError({field:'password'})
         }else{
             removeError('password')
         }

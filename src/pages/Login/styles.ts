@@ -34,6 +34,7 @@ export const Content = styled.div`
     small{
       margin-top: -0.8rem;
       color: ${({ theme }) => theme.red[500]};
+      font-weight: bold;
     }
 
     >button{
