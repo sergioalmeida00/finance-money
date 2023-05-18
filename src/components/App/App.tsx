@@ -3,6 +3,10 @@ import { defaultTheme } from "../../styles/themes/default";
 import { GlobalStyle } from "../../styles/global";
 import { AuthProvider } from "../../hooks/auth";
 import { Routes } from "../../routes";
+import { SideBar } from "../SideBar";
+import { AppContainer, AppContent } from "./styles";
+import { BrowserRouter } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 
 export function App() {
@@ -10,7 +14,14 @@ export function App() {
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle/>
        <AuthProvider>
-          <Routes/>
+        <BrowserRouter>
+            <AppContainer>
+              <SideBar/>
+              <AppContent>
+                <Routes/>
+              </AppContent>          
+            </AppContainer>
+        </BrowserRouter>
        </AuthProvider>
     </ThemeProvider>
   )

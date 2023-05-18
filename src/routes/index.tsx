@@ -8,8 +8,8 @@ import { useContext } from "react";
 export function Routes(){
     const { auth } = useContext(AuthContext)
     return(
-        <BrowserRouter>
-            {auth ? <AppRoutes/> : <AuthRoutes/> }
-        </BrowserRouter>
+        // <BrowserRouter>
+            auth ? <AppRoutes/> : <AuthRoutes/> 
+        // </BrowserRouter>
     )
 }

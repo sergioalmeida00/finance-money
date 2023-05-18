@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
 export const AppContainer = styled.div`
-    width: 100%;
-  max-width:32rem;
-  margin: 0 auto;
-  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 200px auto;
+  height: 100vh;
+`
+
+export const AppContent = styled.div`
+  padding: 20px;
+  overflow-y: auto;
 `

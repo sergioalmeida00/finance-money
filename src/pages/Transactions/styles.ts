@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const TransactionContainer = styled.div`
   width: 100%;
-  max-width: 70rem;
+  /* max-width: 70rem; */
   margin: 4rem auto 0;
   padding: 0 1.5rem;
     @media (max-width: 768px){
