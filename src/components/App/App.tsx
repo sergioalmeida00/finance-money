@@ -6,7 +6,6 @@ import { Routes } from "../../routes";
 import { SideBar } from "../SideBar";
 import { AppContainer, AppContent } from "./styles";
 import { BrowserRouter } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
 
 
 export function App() {
