@@ -4,10 +4,11 @@ import { AuthContext } from '../../hooks/auth';
 import { Container, ContainerCard } from './style';
 import { Card } from '../../components/Card';
 import { FiArrowDownCircle, FiArrowUpCircle, FiDivideCircle, FiDollarSign, FiTrendingUp } from 'react-icons/fi';
+import { Table } from '../../components/Table';
 
 export function Extrato(){
 
-  const {summary,transactionsList} = useContext(AuthContext)
+  const {summary,transactions,transactionsList} = useContext(AuthContext)
 
   useEffect( () => {
     transactionsList()
@@ -16,7 +17,7 @@ export function Extrato(){
     const data = [summary];
    
     return(
-      <Container>   
+        <Container>   
           <ContainerCard>
             <Card
               price={summary.totalIncome} 
@@ -77,6 +78,8 @@ export function Extrato(){
                 <Bar dataKey="totalBalance" fill="#82ca9d" />            
               </BarChart>
           </ResponsiveContainer>   
-      </Container>
+          <Table transactions = {transactions} />
+       </Container>
+
     )
 }
