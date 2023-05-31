@@ -15,6 +15,7 @@ export function Transactions(){
     transactionsList()
   }, [])
 
+  console.log('rederizou')
   
   return (
     <>

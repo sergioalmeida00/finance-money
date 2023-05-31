@@ -14,13 +14,6 @@ export const HeaderContent = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  >strong{
-    font-size: 1.5rem;
-    span{
-      color: ${({ theme }) => theme.green[500]};
-    }
-  }
-
 `
 
 export const NewTransactionButton = styled.button`

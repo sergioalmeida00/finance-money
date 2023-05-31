@@ -5,18 +5,21 @@ import { Container, ContainerCard } from './style';
 import { Card } from '../../components/Card';
 import { FiArrowDownCircle, FiArrowUpCircle, FiDivideCircle, FiDollarSign, FiTrendingUp } from 'react-icons/fi';
 import { Table } from '../../components/Table';
+import { Logo } from '../../components/Logo';
 
 export function Extrato(){
 
   const {summary,transactions,transactionsList} = useContext(AuthContext)
+  
 
   useEffect( () => {
     transactionsList()
   }, [])
 
     const data = [summary];
-   
     return(
+      <>
+        <Logo/>
         <Container>   
           <ContainerCard>
             <Card
@@ -77,9 +80,12 @@ export function Extrato(){
                 <Bar dataKey="daySummary" fill="#c062c0" />
                 <Bar dataKey="totalBalance" fill="#82ca9d" />            
               </BarChart>
-          </ResponsiveContainer>   
+          </ResponsiveContainer> 
+
           <Table transactions = {transactions} />
        </Container>
+      </>
+
 
     )
 }

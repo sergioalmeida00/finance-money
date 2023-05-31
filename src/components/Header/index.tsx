@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { HeaderContainer, HeaderContent, NewTransactionButton } from "./styles";
 import { Modal } from "../Modal";
+import { Logo } from "../Logo";
 
 export function Header(){
 
@@ -15,11 +16,8 @@ export function Header(){
       {
         openModal && <Modal handleToggleModal={handleToggleModal}/>
       }
-      <HeaderContent>
-        <strong>
-          Finance
-          <span>Money</span>
-        </strong>
+      <HeaderContent>  
+        <Logo/>
         <NewTransactionButton onClick={handleToggleModal}>
           Nova transação
         </NewTransactionButton>

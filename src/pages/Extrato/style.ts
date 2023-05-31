@@ -6,6 +6,7 @@ export const Container = styled.main`
     grid-template-columns: repeat(2, 1fr);
     /* grid-template-rows: repeat(2, 1fr); */
     gap: 1rem;
+    margin-top: 2.5rem;
 
 `
 
