@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 import { useAuth } from "./useAuth";
 import { useTransactions } from "./useTransaction";
 
@@ -46,6 +46,10 @@ function AuthProvider({ children }:AuthProviderProps){
 
     const {signIn,auth} = useAuth()
     const {transactions, transactionsList, summary} = useTransactions()
+    
+    useEffect(()=>{
+        transactionsList()
+    },[])
     
     return(
         <AuthContext.Provider value={{ signIn, auth, transactions, transactionsList, summary }}>

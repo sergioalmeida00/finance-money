@@ -1,5 +1,5 @@
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../../hooks/auth';
 import { Container, ContainerCard } from './style';
 import { Card } from '../../components/Card';
@@ -9,12 +9,11 @@ import { Logo } from '../../components/Logo';
 
 export function Extrato(){
 
-  const {summary,transactions,transactionsList} = useContext(AuthContext)
+  const {summary,transactions} = useContext(AuthContext)
   
 
-  useEffect( () => {
-    transactionsList()
-  }, [])
+
+  console.log('renderizou extrato')
 
     const data = [summary];
     return(
