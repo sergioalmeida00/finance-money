@@ -15,13 +15,18 @@ interface SummaryBalance{
 export function useTransactions(){
   const [transactions,setTransactions] = useState([])
   const [summary, setSummary] = useState({} as SummaryBalance )
+  const [summaryCategory, setSummaryCategory] = useState([])
   
   async function transactionsList(){
     const resultTransactions = await TransactionsService.getTransactions()
     const summaryBalance = await TransactionsService.getSummaryBalance()
+    const summaryCategoryType = await TransactionsService.getSummaryCategory({})
+
     setSummary(summaryBalance) 
-    setTransactions(resultTransactions)   
+    setTransactions(resultTransactions)
+    setSummaryCategory(summaryCategoryType)
+
   } 
 
-  return {transactions, summary, transactionsList}
+  return {transactions, summary, transactionsList, summaryCategory}
 }

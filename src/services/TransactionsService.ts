@@ -18,6 +18,10 @@ interface ListTransactionsPros{
     description:string
   }
 
+interface DateTransactionsProps{
+    startDate?:string,
+    endDate?:string
+}
 
 class TransactionsService{
    async createTransactions({title,amount,type,categoryId,releaseDate}:TransactionsPros){
@@ -50,6 +54,11 @@ class TransactionsService{
 
         return summaryBalance
 
+    }
+
+    async getSummaryCategory({startDate = '', endDate = ''}:DateTransactionsProps){
+        const response = await api.get(`/transactions/summary/type?startDate=${startDate}&endDate=${endDate}`)
+        return response.data.summaryTypeCategory
     }
 }
 

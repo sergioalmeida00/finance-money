@@ -9,13 +9,23 @@ import { Logo } from '../../components/Logo';
 
 export function Extrato(){
 
-  const {summary,transactions} = useContext(AuthContext)
+  const {summary,transactions, summaryCategory} = useContext(AuthContext)
+
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      return (
+        <div className="custom-tooltip">
+          <p className="label">{`Categoria: ${data.category}`}</p>
+          <p className="value">{`Valor: ${data.amount}`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
   
-
-
-  console.log('renderizou extrato')
-
-    const data = [summary];
+  console.log(summaryCategory)
+    // const data = [summaryCategory];
     return(
       <>
         <Logo/>
@@ -54,30 +64,36 @@ export function Extrato(){
             />
           </ContainerCard>
           
-          <ResponsiveContainer width="100%">
+          <ResponsiveContainer width="100%" height="100%">
               <BarChart
+               layout="vertical" 
                 width={500}
                 height={300}
-                data={data}
+                data={summaryCategory}
                 barSize={30}
                 margin={{
                   top: 0,
                   right: 30,
                   left: 20,
-                  bottom: 5,
+                  bottom: 20,
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <YAxis />
-                <Tooltip />
-                <Legend  wrapperStyle={{ marginBottom: '-10px' }} />
-                <Bar dataKey="emergencyReserve" fill="#463cdb"  />
-                <Bar dataKey="totalIncome" fill="#8884d8"  />
-                <Bar dataKey="totalExpense" fill="#e78223" />
-                <Bar dataKey="weekSummary" fill="#8295ca" />
-                <Bar dataKey="invested" fill="#36b8bd" />
-                <Bar dataKey="daySummary" fill="#c062c0" />
-                <Bar dataKey="totalBalance" fill="#82ca9d" />            
+                <XAxis type="number" />
+                <YAxis dataKey="category" type="category" />
+                <Tooltip content={<CustomTooltip />} />
+                {/* <Legend  wrapperStyle={{ marginBottom: '-10px' }} /> */}
+                {
+                  summaryCategory.map((item,index) => (   
+                    <Bar 
+                      key={item.category} 
+                      dataKey='amount'
+                      name={item.category}
+                      fill={`#831aa3`} 
+                      barSize={1}
+                    />
+                  ))
+                }
               </BarChart>
           </ResponsiveContainer> 
 

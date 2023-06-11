@@ -30,13 +30,17 @@ interface TransactionsPros{
     invested:number
     total:number
   }
-
+  interface SummaryCategoryProps {
+    category: string;
+    amount: number;
+  }
 interface AuthSignProps{
     signIn: ({login,password}:SignInProps) => void
     auth:string
     transactions:TransactionsPros[]
     transactionsList: () => void
     summary:SummaryBalance 
+    summaryCategory: SummaryCategoryProps[]
 }
 
 
@@ -45,14 +49,14 @@ export const AuthContext = createContext({} as AuthSignProps)
 function AuthProvider({ children }:AuthProviderProps){
 
     const {signIn,auth} = useAuth()
-    const {transactions, transactionsList, summary} = useTransactions()
+    const {transactions, transactionsList, summary, summaryCategory} = useTransactions()
     
     useEffect(()=>{
         transactionsList()
     },[])
     
     return(
-        <AuthContext.Provider value={{ signIn, auth, transactions, transactionsList, summary }}>
+        <AuthContext.Provider value={{ signIn, auth, transactions, transactionsList, summary, summaryCategory }}>
             { children }
         </AuthContext.Provider>
     )
