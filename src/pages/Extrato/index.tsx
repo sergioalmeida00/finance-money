@@ -1,4 +1,4 @@
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip,  ResponsiveContainer } from 'recharts';
 import { useContext } from 'react';
 import { AuthContext } from '../../hooks/auth';
 import { Container, ContainerCard } from './style';
@@ -10,22 +10,7 @@ import { Logo } from '../../components/Logo';
 export function Extrato(){
 
   const {summary,transactions, summaryCategory} = useContext(AuthContext)
-
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      return (
-        <div className="custom-tooltip">
-          <p className="label">{`Categoria: ${data.category}`}</p>
-          <p className="value">{`Valor: ${data.amount}`}</p>
-        </div>
-      );
-    }
-    return null;
-  };
   
-  console.log(summaryCategory)
-    // const data = [summaryCategory];
     return(
       <>
         <Logo/>
@@ -80,20 +65,18 @@ export function Extrato(){
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis type="number" />
-                <YAxis dataKey="category" type="category" />
-                <Tooltip content={<CustomTooltip />} />
-                {/* <Legend  wrapperStyle={{ marginBottom: '-10px' }} /> */}
-                {
-                  summaryCategory.map((item,index) => (   
-                    <Bar 
-                      key={item.category} 
+                <YAxis 
+                  dataKey="category" 
+                  type="category" 
+                  width={80} 
+                  interval={0}
+                />
+                <Tooltip />
+                   <Bar 
                       dataKey='amount'
-                      name={item.category}
-                      fill={`#831aa3`} 
-                      barSize={1}
+                      fill={`#00B37E`} 
+                      barSize={10}
                     />
-                  ))
-                }
               </BarChart>
           </ResponsiveContainer> 
 

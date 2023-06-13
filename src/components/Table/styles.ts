@@ -1,5 +1,10 @@
 import styled from "styled-components"
 
+export const ContainerMain = styled.div`
+ width: 100%;
+ height: 400px;
+ overflow: auto;
+`
 export const Container = styled.table`
     /* display: grid; */
     width: 100%;
@@ -29,7 +34,7 @@ export const Container = styled.table`
             border-bottom-right-radius: 6px;
         }   
     }
-
+    
     tbody tr{
         border-bottom: 1px solid ${({ theme }) => theme.gray[600]};
     }

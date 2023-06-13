@@ -1,6 +1,6 @@
 import { formatDate } from "../../utils/formatDate";
 import { formatPrice } from "../../utils/formatPrice";
-import { Container } from "./styles";
+import { Container, ContainerMain } from "./styles";
 interface TableProps{
     transactions:{
         id:string
@@ -14,6 +14,7 @@ interface TableProps{
 }
 export function Table ({transactions}:TableProps){
     return (
+ 
         <Container>
             <thead>
                 <tr>
