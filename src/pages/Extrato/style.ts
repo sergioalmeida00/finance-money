@@ -22,9 +22,9 @@ export const ContainerCard = styled.section`
     gap: 1rem;
 `
 
-export const Grafico = styled.div`
-    width: 100%;
-`
+// export const Grafico = styled.div`
+//     width: 100%;
+// `
 
 export const NewTransactionButton = styled.button`
   padding: 0.75rem 1.25rem;

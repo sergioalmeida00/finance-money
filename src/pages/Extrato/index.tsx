@@ -68,7 +68,7 @@ export function Extrato(){
               variant='green'
             />
           </ContainerCard>
-          
+       
           <ResponsiveContainer width="100%" height="100%">
               <BarChart
                layout="vertical" 
@@ -83,7 +83,7 @@ export function Extrato(){
                   bottom: 20,
                 }}
               >
-                <CartesianGrid strokeDasharray="3 3" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#323238"/>
                 <XAxis type="number" />
                 <YAxis 
                   dataKey="category" 
