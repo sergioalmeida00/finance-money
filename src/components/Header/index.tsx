@@ -5,20 +5,20 @@ import { Logo } from "../Logo";
 
 export function Header(){
 
-  const[openModal,setOpenModal] = useState(false)
+  // const[openModal,setOpenModal] = useState(false)
 
-  function handleToggleModal(){
-    setOpenModal((prevState) => !prevState)
-  }
+  // function handleToggleModal(){
+  //   setOpenModal((prevState) => !prevState)
+  // }
 
   return (
     <HeaderContainer>
-      {
+      {/* {
         openModal && <Modal handleToggleModal={handleToggleModal}/>
-      }
+      } */}
       <HeaderContent>  
         <Logo/>
-        <NewTransactionButton onClick={handleToggleModal}>
+        <NewTransactionButton >
           Nova transação
         </NewTransactionButton>
       </HeaderContent>

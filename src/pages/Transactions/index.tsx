@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react";
-import { Header } from "../../components/Header";
 import { Summary } from "../../components/Summary";
 import {  Price, TransactionContainer, TransactionTable } from "./styles";
 import { formatDate } from "../../utils/formatDate";
@@ -15,10 +14,8 @@ export function Transactions(){
     transactionsList()
 },[])
 
-  
   return (
     <>
-      <Header/>
       <Summary/>
       <TransactionContainer>
         <TransactionTable>

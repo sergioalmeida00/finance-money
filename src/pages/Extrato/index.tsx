@@ -1,19 +1,39 @@
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip,  ResponsiveContainer } from 'recharts';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../hooks/auth';
-import { Container, ContainerCard } from './style';
+import { Container, ContainerCard, ContainerHeader, NewTransactionButton } from './style';
 import { Card } from '../../components/Card';
 import { FiArrowDownCircle, FiArrowUpCircle, FiDivideCircle, FiDollarSign, FiTrendingUp } from 'react-icons/fi';
 import { Table } from '../../components/Table';
 import { Logo } from '../../components/Logo';
+import { Modal } from '../../components/Modal';
 
 export function Extrato(){
+  const[openModal,setOpenModal] = useState(false)
 
-  const {summary,transactions, summaryCategory} = useContext(AuthContext)
+  const {summary,transactions, summaryCategory, transactionsList} = useContext(AuthContext)
+  
+  function handleToggleModal(){
+    setOpenModal((prevState) => !prevState)
+  }
+
+  useEffect(()=>{
+    transactionsList()
+  },[])
   
     return(
       <>
-        <Logo/>
+        {
+          openModal && <Modal handleToggleModal={handleToggleModal}/>
+        }
+        <ContainerHeader>
+          <Logo/>
+
+          <NewTransactionButton onClick={handleToggleModal} >
+            Nova Transação
+          </NewTransactionButton>
+        </ContainerHeader>
+
         <Container>   
           <ContainerCard>
             <Card
