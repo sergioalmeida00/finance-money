@@ -35,8 +35,16 @@ export const Container = styled.table`
         }   
     }
     
-    tbody tr{
+    /* tbody tr{
         border-bottom: 1px solid ${({ theme }) => theme.gray[600]};
-    }
+        color: ${({ theme }) => theme.green[300]};
+    } */
   
+`
+interface PriceProps{
+    variant: 'income' | 'outcome'
+  }
+export const ContainerTr = styled.tr<PriceProps>`
+    border-bottom: 1px solid ${({ theme }) => theme.gray[600]};
+    color: ${({ theme,variant }) => variant === 'income' ? theme.green[300] : theme.red[300]};
 `
