@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Header } from "../../components/Header";
 import { Summary } from "../../components/Summary";
 import {  Price, TransactionContainer, TransactionTable } from "./styles";
@@ -9,15 +9,17 @@ import { formatPrice } from "../../utils/formatPrice";
 
 export function Transactions(){
 
-  const {transactions} = useContext(AuthContext)
+  const {transactions, transactionsList} = useContext(AuthContext)
 
-  console.log('rederizou')
+  useEffect(()=>{
+    transactionsList()
+},[])
+
   
   return (
     <>
       <Header/>
       <Summary/>
-
       <TransactionContainer>
         <TransactionTable>
             <tbody>

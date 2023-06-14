@@ -7,6 +7,7 @@ import { formatPrice } from "../../utils/formatPrice";
 export function Summary(){
 
 const { summary } = useContext(AuthContext)
+
   return(
     <SummaryContainer>
       <SummaryCard>
