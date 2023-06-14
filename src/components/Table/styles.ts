@@ -35,16 +35,21 @@ export const Container = styled.table`
         }   
     }
     
-    /* tbody tr{
+    tbody tr{
         border-bottom: 1px solid ${({ theme }) => theme.gray[600]};
-        color: ${({ theme }) => theme.green[300]};
-    } */
+        color: ${({ theme }) => theme.gray[100]};
+    }
   
 `
 interface PriceProps{
     variant: 'income' | 'outcome'
   }
-export const ContainerTr = styled.tr<PriceProps>`
-    border-bottom: 1px solid ${({ theme }) => theme.gray[600]};
-    color: ${({ theme,variant }) => variant === 'income' ? theme.green[300] : theme.red[300]};
+
+
+export const ContainerType = styled.span<PriceProps>`
+    padding: 0.3rem;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    font-weight: bold;
+    background: ${({ theme, variant }) => variant === 'income' ? theme.green[700] : theme.red[300]};
 `

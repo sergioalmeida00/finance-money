@@ -1,6 +1,6 @@
 import { formatDate } from "../../utils/formatDate";
 import { formatPrice } from "../../utils/formatPrice";
-import { Container, ContainerMain, ContainerTr } from "./styles";
+import { Container, ContainerMain, ContainerType } from "./styles";
 interface TableProps{
     transactions:{
         id:string
@@ -20,6 +20,7 @@ export function Table ({transactions}:TableProps){
                 <tr>
                     <th>Descrição</th>
                     <th>Valor</th>
+                    <th>Tipo</th>
                     <th>Categoria</th>
                     <th>Data</th>
                 </tr>
@@ -27,15 +28,22 @@ export function Table ({transactions}:TableProps){
             <tbody>
                 {
                     transactions.map(( transaction ) => (
-                        <ContainerTr 
+                        <tr 
                             key={ transaction.id } 
-                            variant={transaction.amount > 0 ? 'income' : 'outcome'}
                         >
                             <td> { transaction.title } </td>
                             <td> { formatPrice(transaction.amount) } </td>
+                            <td>
+                                 <ContainerType 
+                                    variant={transaction.amount > 0 ? 'income' : 'outcome'}
+                                 >
+                                     { transaction.amount > 0 ? 'RECEITA' : 'DESPESA' }
+                                 </ContainerType>                                 
+                             </td>
                             <td> { transaction.description } </td>
                             <td> { formatDate(transaction.release_date) } </td>
-                        </ContainerTr>               
+
+                        </tr>               
                     ))
                 }
                 
