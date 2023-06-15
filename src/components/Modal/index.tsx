@@ -1,5 +1,5 @@
-import { Button, ModalContainer, ModalContent, ModalInput, ModalOverlay, ModalSelect } from "./styles";
-import { FiXCircle } from 'react-icons/fi';
+import { Button, ModalContainer, ModalContent, ModalInput, ModalOverlay, ModalSelect, RadioBox, TransactionTypeContainer } from "./styles";
+import { FiXCircle,FiArrowUpCircle,FiArrowDownCircle } from 'react-icons/fi';
 import ReactDOM from 'react-dom';
 import {  useContext, useEffect, useState } from "react";
 import TransactionsService from "../../services/TransactionsService";
@@ -24,7 +24,7 @@ export function Modal({handleToggleModal}:ModalProps){
   const [title,setTitle] = useState('')
   const [amount,setAmount] = useState('')
   const [releaseDate,setReleaseDate] = useState('')
-  const [typeTransaction, setTypeTransaction] = useState<Pick<CategoriesProps,'typeTransaction'>>()  
+  const [typeTransaction, setTypeTransaction] = useState('credit')  
 
   const{ transactionsList } = useContext(AuthContext)
   const { errors,getErrorMessageByFieldName,removeError,setError} = useErrors()
@@ -59,7 +59,7 @@ export function Modal({handleToggleModal}:ModalProps){
 
     transactionsList()
   }
-
+  
   useEffect(() => { 
 
     loadCategories()
@@ -99,6 +99,28 @@ export function Modal({handleToggleModal}:ModalProps){
           />
           { errors && <small> { getErrorMessageByFieldName('date') } </small> }
 
+          <TransactionTypeContainer>
+            <RadioBox
+              type="button"
+              onClick={() => setTypeTransaction('credit')}
+              isActive={typeTransaction === 'credit'}
+              typeTransaction='credit'
+            >
+              <FiArrowUpCircle color="#00B37E"/>
+              <span>Entrada</span>              
+            </RadioBox>
+            <RadioBox
+              type="button"
+              onClick={() => setTypeTransaction('debit')}
+              isActive={typeTransaction === 'debit'}
+              typeTransaction='debit'
+            >
+              <FiArrowDownCircle color="#F75A68" />
+              <span>Saida</span>
+            </RadioBox>
+          </TransactionTypeContainer>
+          { errors && <small> { getErrorMessageByFieldName('type') } </small> }
+          
           <ModalSelect name="category" onChange={(event) => {handleChange( event,setCategory )}} >
             <option value="" >Selecione a Categoria</option>
             {
@@ -111,12 +133,12 @@ export function Modal({handleToggleModal}:ModalProps){
           </ModalSelect>
           { errors && <small> { getErrorMessageByFieldName('category') } </small> }
 
-          <ModalSelect name="type" onChange={(event) => {handleChange(event,setTypeTransaction )}} >
+          {/* <ModalSelect name="type" onChange={(event) => {handleChange(event,setTypeTransaction )}} >
             <option value="">Tipo de Movimentação</option>
             <option value="credit">Credito</option>
             <option value="debit">Debito</option>
-          </ModalSelect>          
-          { errors && <small> { getErrorMessageByFieldName('type') } </small> }
+          </ModalSelect>   */}
+
          
           <Button disabled={isValid}> Cadastrar </Button>
         </ModalContent>

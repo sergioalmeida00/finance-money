@@ -74,7 +74,9 @@ export const ModalSelect = styled.select`
   background: ${({ theme }) => theme.gray[900]};
 `
 
+
 export const Button = styled.button`
+ 
   padding: 0.75rem 1.25rem;
   border-radius: 6px;
   border: none;
@@ -89,5 +91,42 @@ export const Button = styled.button`
   &[disabled]{
     cursor: not-allowed;
     opacity: 0.2;
+  }
+`
+
+export const TransactionTypeContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+`
+interface ButtonProps{
+  isActive?:boolean
+  typeTransaction:'credit' | 'debit'
+}
+
+export const RadioBox = styled.button<ButtonProps>`
+  height: 4rem;
+  border: 1px solid ${({ theme }) => theme.gray[600]};
+  border-radius: 4px;
+
+  background: ${({ theme,isActive,typeTransaction }) => 
+    (isActive && typeTransaction === 'credit') ?'rgba(0, 179, 126, 0.3)' :
+    (isActive && typeTransaction === 'debit') ? 'rgba(229, 46, 77, 0.3)' : 'transparent'};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  transition:  border-color ease-in 0.3s;
+
+  &:hover{
+    border-color: ${({ theme }) => theme.gray[500]};
+  }
+
+  >span{
+    color: ${({ theme }) => theme.gray[300]};
+  }
+
+  >svg{
+    color: ${({ theme }) => theme.gray[300]};
   }
 `
