@@ -132,13 +132,6 @@ export function Modal({handleToggleModal}:ModalProps){
             }         
           </ModalSelect>
           { errors && <small> { getErrorMessageByFieldName('category') } </small> }
-
-          {/* <ModalSelect name="type" onChange={(event) => {handleChange(event,setTypeTransaction )}} >
-            <option value="">Tipo de Movimentação</option>
-            <option value="credit">Credito</option>
-            <option value="debit">Debito</option>
-          </ModalSelect>   */}
-
          
           <Button disabled={isValid}> Cadastrar </Button>
         </ModalContent>
